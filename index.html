@@ -12,7 +12,10 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <!-- MATERIAL-UI--icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <script
+        src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.3.0/dist/dotlottie-wc.js"
+        type="module"
+    ></script>
     <style>
         :root {
             --bg-color: rgb(227, 227, 225);
@@ -46,7 +49,7 @@
             font-style: normal;   
         }
         .hero {
-            height: 500px;
+            height: 600px;
         }
         .hero .col {
             padding: 0;
@@ -105,6 +108,28 @@
             padding: 0.5em;
             /* background: red; */
         }
+        .caribou, .carabao, .overlay {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+        }
+        .overlay {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .carabao {
+            background-image: url('assets/carabao.jpg')
+        }
+        .caribou {
+            background-image: url('assets/caribou-g_sepia.png');
+        }
+        .hero dotlottie-wc {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            translate: -50% 0;
+            width: 250px;
+            height: 125px;
+        }
         .romels-section-element-container {
             width: 500px;
         }
@@ -138,11 +163,23 @@
             </nav>
         </header>
         <main>
+            <!-- hero -->
             <section>
-                <div class="hero valign-wrapper center-align">
+                <div class="hero valign-wrapper center-align relative">
+                    <div class="caribou absolute" :style="caribouStyle"></div>
+                    <div class="carabao absolute" :style="carabaoStyle"></div>
+                    <div class="overlay absolute"></div>
                     <div class="row">
                         <div class="col s12 relative mask-layer no-select">
+                            
                             <h1 class="brand-logo fullwidth absolute">
+                                <dotlottie-wc
+                                    src="https://lottie.host/3907c87a-616f-4487-ad90-80e7984cef1c/lJ29vNNopZ.lottie"
+                                    autoplay
+                                    loop
+                                    speed="0.75"
+                                    :style="arrowStyle"
+                                ></dotlottie-wc>
                                 <div class="dot relative" :style="movingDotStyle">{{dot}}</div>
                             </h1>
                             <h1 class="brand-logo fullwidth masked-text">
@@ -177,21 +214,21 @@
             <section class="romels-section-element-container">
                 <div class="row">
                     <div class="col s12 m7">
-                      <div class="card hoverable">
+                        <div class="card hoverable">
                         <div class="card-image">
-                          <img class="romels-image-src-element" src="https://t3.ftcdn.net/jpg/01/85/21/94/240_F_185219415_B4vnT9mnjRj70bChe5ZPI1hwBfQ7di0e.jpg">
-                          <span class="card-title">Card Title</span>
+                            <img class="romels-image-src-element" src="https://t3.ftcdn.net/jpg/01/85/21/94/240_F_185219415_B4vnT9mnjRj70bChe5ZPI1hwBfQ7di0e.jpg">
+                            <span class="card-title">Card Title</span>
                         </div>
                         <div class="card-content">
-                          <p>I am a very simple card. I am good at containing small bits of information.
-                          I am convenient because I require little markup to use effectively.</p>
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
                         </div>
                         <div class="card-action">
-                          <a href="#">This is a link</a>
+                            <a href="#">This is a link</a>
                         </div>
-                      </div>
+                        </div>
                     </div>
-                  </div>
+                </div>
             </section>
             <section>
                 <div class="container">
@@ -210,22 +247,39 @@
     <script>
         const { createApp, onMounted } = Vue
       
-        createApp({
+        function lerp(a, b, t) 
+        {
+            return (a * (1.0 - t)) + (b * t);
+        }
+
+        const app = createApp({
             data() {
                 return {
                     dots: ['·', '|'],
                     doti: 0,
                     radius: 60,
                     dragging: false,
-                    dotX: window.innerWidth/2,
+                    dotRealX: window.innerWidth/2,
                     dotY: 0,
-                    isMounted: false
+                    isMounted: false,
+                    t: 0,
+                    buildUp: 0,
+                    waited: 0,
+                    mousePressed: false
                 }
             },
             mounted() {
                 setInterval(() => {
                     this.doti = (this.doti + 1) % this.dots.length
                 }, 750);
+                setInterval(() => {
+                    this.t += 1
+                    this.buildUp = Math.max(this.buildUp - 1/100, 0)
+                    if (!this.buildUp) {
+                        this.waited += 1
+                        this.dotRealX = lerp(this.dotRealX, window.innerWidth/2, .1)
+                    }
+                }, 50)
                 document.querySelector('.dot').addEventListener('mousedown', this.startDrag);
                 this.isMounted = true
             },
@@ -238,7 +292,14 @@
                 },
                 updatePosition(event) {
                     if (!this.dragging) return;
-                    this.dotX = event.clientX; // Only update X
+                    // this.dotX = event.clientX; // Only update X
+                    this.buildUp = 1
+                    this.waited = 0
+                    this.dotRealX = Math.min(
+                        Math.max(this.dotMin, 
+                        event.clientX),
+                        this.dotMax
+                    )
                 },
                 stopDrag() {
                     this.dragging = false;
@@ -249,6 +310,17 @@
             computed: {
                 dot() {
                     return this.dots[this.doti]
+                },
+                dotEX() {
+                    if (!this.isMounted) return 0;
+                    let affect = Math.min(Math.max(this.waited/100-.5,0),1)
+                    let a = Math.sin(this.t/20) * affect * (this.dotMax-this.dotMin)*0.025 + window.innerWidth/2
+                    return a
+                },
+                dotX() {
+                    if (!this.isMounted) return 0;
+                    if (this.dragging) return this.dotRealX;
+                    return lerp(this.dotEX, this.dotRealX, this.buildUp)
                 },
                 maskLeftStyle() {
                     return {
@@ -268,26 +340,47 @@
                     let el = this.$refs.heroleft
                     return el ? el.getBoundingClientRect().width : 0
                 },
+                dotMin() {
+                    if (!this.isMounted) return 0;
+                    return window.innerWidth/2 - this.leftWidth
+                },
+                dotMax() {
+                    if (!this.isMounted) return 0;
+                    return window.innerWidth/2 + this.rightWidth
+                },
                 rightWidth() {
                     if (!this.isMounted) return 0;
                     let el = this.$refs.heroright
                     return el ? el.getBoundingClientRect().width : 0
                 },
                 movingDotStyle() {
-                    console.log(this.leftWidth)
-                    const x = Math.min(
-                        Math.max(window.innerWidth/2 - this.leftWidth, 
-                        this.dotX),
-                        window.innerWidth/2 + this.rightWidth
-                    )
-                    console.log(`x ${x}`)
                     return {
                         transform: `translate(-50%, 0)`,
-                        translate: `${x}px 0`
+                        translate: `${this.dotX}px 0`
+                    }
+                },
+                caribouStyle() {
+                    return {
+                        opacity: (this.dotX - this.dotMin)/(this.dotMax-this.dotMin)
+                    }
+                },
+                carabaoStyle() {
+                    return {
+                        opacity: 1-(this.dotX - this.dotMin)/(this.dotMax-this.dotMin)
+                    }
+                },
+                arrowStyle() {
+                    let op = Math.abs(0.5-(this.dotX - this.dotMin)/(this.dotMax-this.dotMin))*8
+                    return {
+                        opacity: 1-op
                     }
                 }
             }
-        }).mount('#app')
+        })
+        
+        app.config.compilerOptions.isCustomElement = tag => tag.startsWith('dotlottie')
+
+        app.mount('#app')        
     </script>
 </body>
 </html>
