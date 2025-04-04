@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Limelight&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Limelight&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <!-- MATERIAL-UI--icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -47,6 +49,13 @@
             font-family: "Limelight", sans-serif;
             font-weight: 400;
             font-style: normal;   
+        }
+        .subtitle {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 100;
+            font-style: normal;
+            font-size: smaller;
         }
         .hero {
             height: 600px;
@@ -130,6 +139,9 @@
             width: 250px;
             height: 125px;
         }
+        .m0 {
+            margin: 0;
+        }
         .romels-section-element-container {
             width: 500px;
         }
@@ -168,39 +180,45 @@
                 <div class="hero valign-wrapper center-align relative">
                     <div class="caribou absolute" :style="caribouStyle"></div>
                     <div class="carabao absolute" :style="carabaoStyle"></div>
-                    <div class="overlay absolute"></div>
-                    <div class="row">
-                        <div class="col s12 relative mask-layer no-select">
-                            
-                            <h1 class="brand-logo fullwidth absolute">
-                                <dotlottie-wc
-                                    src="https://lottie.host/3907c87a-616f-4487-ad90-80e7984cef1c/lJ29vNNopZ.lottie"
-                                    autoplay
-                                    loop
-                                    speed="0.75"
-                                    :style="arrowStyle"
-                                ></dotlottie-wc>
-                                <div class="dot relative" :style="movingDotStyle">{{dot}}</div>
-                            </h1>
-                            <h1 class="brand-logo fullwidth masked-text">
-                                <div class="row hero-text">
-                                    <div 
-                                        class="col s6 right-align" 
-                                        :style="maskLeftStyle">
-                                        <span ref="heroleft">
-                                            Caribou
-                                        </span>
+                    <!-- <div class="overlay absolute"></div> -->
+                    <div class="fullwidth m0">
+                        <div class="row m0">
+                            <div class="col s12 relative mask-layer no-select">  
+                                <h1 class="brand-logo fullwidth absolute">
+                                    <dotlottie-wc
+                                        src="https://lottie.host/3907c87a-616f-4487-ad90-80e7984cef1c/lJ29vNNopZ.lottie"
+                                        autoplay
+                                        loop
+                                        speed="0.75"
+                                        :style="arrowStyle"
+                                    ></dotlottie-wc>
+                                    <div class="dot relative" :style="movingDotStyle">{{dot}}</div>
+                                </h1>
+                                <h1 class="brand-logo fullwidth masked-text">
+                                    <div class="row hero-text">
+                                        <div 
+                                            class="col s6 right-align" 
+                                            :style="maskLeftStyle">
+                                            <span ref="heroleft">
+                                                Caribou
+                                            </span>
+                                        </div>
+                                        <!-- <span class="invisible">{{dots[0]}}</span>  -->
+                                        <div 
+                                            class="col s6 left-align" 
+                                            :style="maskRightStyle">
+                                            <span ref="heroright" >
+                                                Carabao
+                                            </span>
+                                        </div>
                                     </div>
-                                    <!-- <span class="invisible">{{dots[0]}}</span>  -->
-                                    <div 
-                                        class="col s6 left-align" 
-                                        :style="maskRightStyle">
-                                        <span ref="heroright" >
-                                            Carabao
-                                        </span>
-                                    </div>
-                                </div>
-                            </h1>
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 subtitle relative">
+                                <h3>Local. Fun. Humble. Helping Cats</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
