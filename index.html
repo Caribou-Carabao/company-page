@@ -4,8 +4,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caribou Carabao</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Limelight&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- MATERIAL-UI--icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: rgb(227, 227, 225);
+            --nav-height: 100px;
+            /* ___romels__variables___ */
+            --col-height: 90px;
+            /*  */
+
+        }
+        html {
+            background-color: var(--bg-color);
+        }
+        .nav-wrapper, nav {
+            background-color: rgba(227, 227, 225, 0);
+            height: var(--nav-height);
+            line-height: var(--nav-height);
+        }
+        nav {
+            box-shadow: none;
+            color: black;
+        }
+        .nav-wrapper img {
+            margin: 0 0.5em;
+        }
+        .nav-wrapper a {
+            color: black;
+        }
+        .brand-logo {
+            font-family: "Limelight", sans-serif;
+            font-weight: 400;
+            font-style: normal;   
+        }
+        .hero {
+            height: 500px;
+        }
+        .hero .col {
+            padding: 0;
+        }
+        .fullwidth, .hero {
+            width: 100vw;
+        }
+        .invisible {
+            color: rgba(0,0,0,0)
+        }
+        .relative {
+            position: relative;
+        }
+        .absolute {
+            position: absolute;
+            top: 0
+        }
+        .masked-text {
+            /* font-size: 3rem;
+            font-weight: bold; */
+            /* color: black; */
+            mix-blend-mode: normal;
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .dot {
+            pointer-events: auto;
+            cursor: grab;
+            position: absolute;
+            left: 0;
+        }
+        /* https://stackoverflow.com/a/4407335 */
+        .noselect {
+          -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+             -khtml-user-select: none; /* Konqueror HTML */
+               -moz-user-select: none; /* Old versions of Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                    user-select: none; /* Non-prefixed version, currently
+                                        supported by Chrome, Edge, Opera and Firefox */
+        }
+        .top0 {
+            top: -50px
+        }
+        .hero-text .right-align span {
+            /* translate: -0.25em 0; */
+            padding-left: 1em;
+        }
+        .hero-text .left-align span {
+            /* translate: 0.25em 0; */
+            padding-right: 1em;
+        }
+        .hero-text span {
+            padding: 0.5em;
+            /* background: red; */
+        }
+        .romels-section-element-container {
+            width: 500px;
+        }
+        .romels-col-element-justify-content {
+            justify-content: center;
+        }.romels-col-element {
+            height: var(--col-height);
+            line-height: var(--col-height);
+        }
+        .romels-border-box-element {
+            border: dotted;
+        }
+    </style>
 </head>
 <body>
-    stub
+    <div id="app">
+        <header>
+            <nav >
+                <div class="nav-wrapper">
+                    <img
+                        src="assets/carabao caribou transparent.png" alt=""
+                        height="100"
+                    >
+                    <a href="#" class="brand-logo">Caribou.Carabao</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Support the Cats</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <div class="hero valign-wrapper center-align">
+                    <div class="row">
+                        <div class="col s12 relative mask-layer no-select">
+                            <h1 class="brand-logo fullwidth absolute">
+                                <div class="dot relative" :style="movingDotStyle">{{dot}}</div>
+                            </h1>
+                            <h1 class="brand-logo fullwidth masked-text">
+                                <div class="row hero-text">
+                                    <div 
+                                        class="col s6 right-align" 
+                                        :style="maskLeftStyle">
+                                        <span ref="heroleft">
+                                            Caribou
+                                        </span>
+                                    </div>
+                                    <!-- <span class="invisible">{{dots[0]}}</span>  -->
+                                    <div 
+                                        class="col s6 left-align" 
+                                        :style="maskRightStyle">
+                                        <span ref="heroright" >
+                                            Carabao
+                                        </span>
+                                    </div>
+                                </div>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="container">
+                <h1>Caribou Carabao</h1>
+                <p>
+                    A humble web dev studio spanning Guam and Canada
+                </p>
+            </div>
+            <section class="romels-section-element-container">
+                <div class="row">
+                    <div class="col s12 m7">
+                      <div class="card hoverable">
+                        <div class="card-image">
+                          <img class="romels-image-src-element" src="https://t3.ftcdn.net/jpg/01/85/21/94/240_F_185219415_B4vnT9mnjRj70bChe5ZPI1hwBfQ7di0e.jpg">
+                          <span class="card-title">Card Title</span>
+                        </div>
+                        <div class="card-content">
+                          <p>I am a very simple card. I am good at containing small bits of information.
+                          I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                          <a href="#">This is a link</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col s2 valign-wrapper romels-col-element romels-col-element-justify-content"><a class="waves-effect waves-light btn">button</a></div>
+                        <div class="col s8 center-align hoverable romels-col-element romels-border-box-element">Empty Space</div>
+                        <div class="col s2 romels-col-elhoverable ement"><i class="large material-icons">arrow_forward</i></div>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+    </div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        const { createApp, onMounted } = Vue
+      
+        createApp({
+            data() {
+                return {
+                    dots: ['·', '|'],
+                    doti: 0,
+                    radius: 60,
+                    dragging: false,
+                    dotX: window.innerWidth/2,
+                    dotY: 0,
+                    isMounted: false
+                }
+            },
+            mounted() {
+                setInterval(() => {
+                    this.doti = (this.doti + 1) % this.dots.length
+                }, 750);
+                document.querySelector('.dot').addEventListener('mousedown', this.startDrag);
+                this.isMounted = true
+            },
+            methods: {
+                startDrag(event) {
+                    this.dragging = true;
+                    this.updatePosition(event);
+                    window.addEventListener('mousemove', this.updatePosition);
+                    window.addEventListener('mouseup', this.stopDrag);
+                },
+                updatePosition(event) {
+                    if (!this.dragging) return;
+                    this.dotX = event.clientX; // Only update X
+                },
+                stopDrag() {
+                    this.dragging = false;
+                    window.removeEventListener('mousemove', this.updatePosition);
+                    window.removeEventListener('mouseup', this.stopDrag);
+                }
+            },
+            computed: {
+                dot() {
+                    return this.dots[this.doti]
+                },
+                maskLeftStyle() {
+                    return {
+                        WebkitMaskImage: `linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) calc(${this.dotX}px - 5px), transparent calc(${this.dotX}px - 2px), transparent 100%)`,
+                        maskImage: `linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) calc(${this.dotX}px + 0.25em - 5px), transparent calc(${this.dotX}px + 0.25em - 2px), transparent 100%)`,
+                    };
+                },
+                maskRightStyle() {
+                    let ox = this.dotX-window.innerWidth
+                    return {
+                        WebkitMaskImage: `linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) calc(${-ox}px - 5px), transparent calc(${-ox}px - 2px), transparent 100%)`,
+                        maskImage: `linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) calc(${-ox}px + 0.25em - 5px), transparent calc(${-ox}px + 0.25em - 2px), transparent 100%)`,
+                    };
+                },
+                leftWidth() {
+                    if (!this.isMounted) return 0;
+                    let el = this.$refs.heroleft
+                    return el ? el.getBoundingClientRect().width : 0
+                },
+                rightWidth() {
+                    if (!this.isMounted) return 0;
+                    let el = this.$refs.heroright
+                    return el ? el.getBoundingClientRect().width : 0
+                },
+                movingDotStyle() {
+                    console.log(this.leftWidth)
+                    const x = Math.min(
+                        Math.max(window.innerWidth/2 - this.leftWidth, 
+                        this.dotX),
+                        window.innerWidth/2 + this.rightWidth
+                    )
+                    console.log(`x ${x}`)
+                    return {
+                        transform: `translate(-50%, 0)`,
+                        translate: `${x}px 0`
+                    }
+                }
+            }
+        }).mount('#app')
+    </script>
 </body>
 </html>
