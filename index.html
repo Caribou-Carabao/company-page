@@ -21,11 +21,11 @@
     <style>
         :root {
             --bg-color: rgb(227, 227, 225);
+            --against-white-color: #666;
             --nav-height: 100px;
             /* ___romels__variables___ */
             --col-height: 90px;
             /*  */
-
         }
         html {
             background-color: var(--bg-color);
@@ -38,23 +38,58 @@
         nav {
             box-shadow: none;
             color: black;
+            position: fixed;
+            z-index: 200;
+        }
+        .nav-padding {
+            height: var(--nav-height);
+            width: 100vw;
+        }
+        .nav-padding.backing {
+            position: fixed;
+            top: 0;
+            background-color: var(--bg-color);
         }
         .nav-wrapper img {
             margin: 0 0.5em;
+            height: var(--nav-height);
         }
         .nav-wrapper a {
             color: black;
+        }
+        @media only screen and (max-width: 600px) {
+            :root {
+                --nav-height: 75px;
+            }
+            nav .brand-logo {
+                padding-left: 70px;
+                text-align: center;
+            }
+            .hero .brand-logo {
+                font-size: 2.5rem;
+            }
         }
         .brand-logo {
             font-family: "Limelight", sans-serif;
             font-weight: 400;
             font-style: normal;   
         }
-        .subtitle {
+        h2, .subtitle h3 {
             font-family: "Montserrat", sans-serif;
             font-optical-sizing: auto;
-            font-weight: 100;
+            font-weight: 300;
             font-style: normal;
+        }
+        h2 {
+            margin-top: 0.5em;
+            padding-bottom: 0.5em;
+            padding-left: 0.25em;
+            padding-right: 0.25em;
+            margin-bottom: 0.7em;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.87);
+            width: fit-content;
+        }
+        .subtitle {
             font-size: smaller;
         }
         .hero {
@@ -142,17 +177,42 @@
         .m0 {
             margin: 0;
         }
+        .py-1 {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        .text-section {
+            padding-bottom: 5rem;
+        }
+        .white-bg {
+            background-color: white;
+            color: var(--against-white-color);
+        }
         .romels-section-element-container {
             width: 500px;
         }
         .romels-col-element-justify-content {
             justify-content: center;
-        }.romels-col-element {
+        }
+        .romels-col-element {
             height: var(--col-height);
             line-height: var(--col-height);
         }
         .romels-border-box-element {
             border: dotted;
+        }
+        .romels-button-alignment {
+            display: flex;
+            height: 85.75px;
+            align-items: center;
+        }
+        #romels-submit-button {
+            /* margin-bottom: 6.5px; */
+            margin-bottom: 8.5px;
+        }
+        .romels-col-element-2 {
+            height: 85.75px;
+            line-height: 85.75px;
         }
     </style>
 </head>
@@ -162,17 +222,18 @@
             <nav >
                 <div class="nav-wrapper">
                     <img
-                        src="assets/carabao caribou transparent.png" alt=""
-                        height="100"
+                        src="assets/carabao caribou transparent.png" alt="Caribou Carabao logo"
                     >
                     <a href="#" class="brand-logo">Caribou.Carabao</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Support the Cats</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#support">Support the Cats</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </nav>
+            <div class="nav-padding"></div>
+            <div class="nav-padding backing"></div>
         </header>
         <main>
             <!-- hero -->
@@ -180,9 +241,9 @@
                 <div class="hero valign-wrapper center-align relative">
                     <div class="caribou absolute" :style="caribouStyle"></div>
                     <div class="carabao absolute" :style="carabaoStyle"></div>
-                    <!-- <div class="overlay absolute"></div> -->
+                    <div class="overlay absolute"></div>
                     <div class="fullwidth m0">
-                        <div class="row m0">
+                        <div class="row m0 hide-on-small-only">
                             <div class="col s12 relative mask-layer no-select">  
                                 <h1 class="brand-logo fullwidth absolute">
                                     <dotlottie-wc
@@ -216,6 +277,9 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col s12 show-on-small hide-on-med-and-up brand-logo relative">
+                                <h3 class="brand-logo">Caribou·Carabao</h3>
+                            </div>
                             <div class="col s12 subtitle relative">
                                 <h3>Local. Fun. Humble. Helping Cats</h3>
                             </div>
@@ -223,6 +287,45 @@
                     </div>
                 </div>
             </section>
+            <section id="about" class="container py-1 text-section">
+                <div class="row">
+                    <h2>Who are we?</h2>
+                </div>
+                <p><b>Caribou Carabao</b> started as a small idea with a big heart. 
+                    One of our team members was facing a tough choice—give up 
+                    their beloved cats or find a way to make extra money. 
+                    So, we came together to create, build, and hustle, all 
+                    to keep the cats fed and safe. We’re still figuring things out, 
+                    and we're tiny, but we can take care of your web needs whether 
+                    its caribou or carabao you have in your backyard.</p>
+            </section>
+            <section id="support" class="white-bg py-1">
+                <div class="container text-section">
+                    <div class="row">
+                        <h2 class="right">Support the Cats</h2>
+                    </div>
+                    <p class="right-align">Every project we take on helps fund Sarah's cat care. 
+                        Whether it's building websites, creating fun digital 
+                        experiences, or just sharing our love for creativity, we 
+                        make sure a portion of everything we do goes toward keeping 
+                        our feline friends happy and safe. Want to chip in? 
+                        <a href="https://gofund.me/dc730606" target="_blank">Donate</a>
+                        or 
+                        <a href="#contact">Hire Us</a>
+                        and let's make something awesome together!</p>
+                </div>
+            </section>
+            <section id="support" class="py-1">
+                <div class="container text-section">
+                    <div class="row">
+                        <h2>Contact Us</h2>
+                    </div>
+                    
+                    <p>Got an idea? Need a website? Just want to say hi (or send cat pics)? Reach out!</p>
+                    
+                </div>
+            </section>
+
             <div class="container">
                 <h1>Caribou Carabao</h1>
                 <p>
@@ -234,7 +337,7 @@
                     <div class="col s12 m7">
                         <div class="card hoverable">
                         <div class="card-image">
-                            <img class="romels-image-src-element" src="https://t3.ftcdn.net/jpg/01/85/21/94/240_F_185219415_B4vnT9mnjRj70bChe5ZPI1hwBfQ7di0e.jpg">
+                            <img class="responsive-img romels-image-src-element" src="https://t3.ftcdn.net/jpg/01/85/21/94/240_F_185219415_B4vnT9mnjRj70bChe5ZPI1hwBfQ7di0e.jpg">
                             <span class="card-title">Card Title</span>
                         </div>
                         <div class="card-content">
@@ -248,15 +351,32 @@
                     </div>
                 </div>
             </section>
-            <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="col s2 valign-wrapper romels-col-element romels-col-element-justify-content"><a class="waves-effect waves-light btn">button</a></div>
-                        <div class="col s8 center-align hoverable romels-col-element romels-border-box-element">Empty Space</div>
-                        <div class="col s2 romels-col-elhoverable ement"><i class="large material-icons">arrow_forward</i></div>
-                    </div>
+            <div class="container">
+                <!-- input-with-icon-prefix -->
+                <div class="row">
+                    <form class="col s12">
+                      <div class="row">
+                        <div class="col s4 center-align romels-col-element-2 romels-border-box-element">Empty</div>
+                        <div class="input-field col s6">
+                          <i class="material-icons prefix">mode_edit</i>
+                          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                          <label for="icon_prefix2">When are you available?</label>
+                        </div>
+                        <div class="col s2 romels-button-alignment">
+                            <a class="waves-effect waves-light btn" id="romels-submit-button">button</a>
+                        </div>
+                      </div>
+                    </form>
                 </div>
-            </section>
+                <!-- [End] input-with-icon-prefix -->
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col s2 valign-wrapper romels-col-element romels-col-element-justify-content"><a class="waves-effect waves-light btn">button</a></div>
+                    <div class="col s8 center-align romels-col-element romels-border-box-element">Empty Space</div>
+                    <div class="col s2 romels-col-element"><i class="large material-icons">arrow_forward</i></div>
+                </div>
+            </div>
             
         </main>
     </div>
@@ -273,6 +393,18 @@
         const app = createApp({
             data() {
                 return {
+                    // 
+                    // romels-data
+                    availability: {
+                        'chovin': {'sunday': [], 'monday': [], 'tuesday': [], 'wednesday': [], 'thursday': [], 'friday': [], 'saturday': []},
+                        'romel' : {},
+                        'leo' : {},
+                        'dawn' : {}
+                    },
+                    isClicked: {},
+                    formContent: null,
+
+                    // 
                     dots: ['·', '|'],
                     doti: 0,
                     radius: 60,
@@ -287,6 +419,11 @@
                 }
             },
             mounted() {
+                // 
+                // romels-mounted()
+
+
+                // 
                 setInterval(() => {
                     this.doti = (this.doti + 1) % this.dots.length
                 }, 750);
@@ -302,6 +439,15 @@
                 this.isMounted = true
             },
             methods: {
+                // 
+                // romels-methods
+                postData() {
+                    return {}
+                    // this function will execute a fetch api --post-request-- to a 
+                    // webhook
+                },
+
+                // 
                 startDrag(event) {
                     this.dragging = true;
                     this.updatePosition(event);
