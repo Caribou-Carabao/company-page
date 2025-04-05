@@ -20,7 +20,9 @@
     ></script>
     <style>
         :root {
-            --bg-color: rgb(227, 227, 225);
+            --bg-color: hsl(60, 3%, 89%);
+            --darker-bg-color: hsl(60, 8%, 60%);
+            --darkest-bg-color: hsl(60, 10%, 50%);
             --against-white-color: #666;
             --nav-height: 100px;
             scroll-behavior: smooth;
@@ -182,12 +184,44 @@
             padding-top: 4rem;
             padding-bottom: 4rem;
         }
+        .pt-05 {
+            padding-top: 2rem;
+        }
+        .py-05 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
         .text-section {
             padding-bottom: 5rem;
         }
-        .white-bg {
+        .white-bg, .footer-copyright.white-bg {
             background-color: white;
             color: var(--against-white-color);
+        }
+        footer .row {
+            margin: 0;
+        }
+        .justify-right {
+            justify-content: right;
+        }
+        .btn {
+            background-color: var(--darker-bg-color);
+        }
+        .btn:hover {
+            background-color: var(--darkest-bg-color);
+        }
+        textarea.materialize-textarea:not([readonly])+label {
+            color: var(--darkest-bg-color);
+        }
+        textarea.materialize-textarea:focus:not([readonly])+label {
+            color: black;
+        }
+        textarea.materialize-textarea:not([readonly]) {
+            border-bottom: 1px solid var(--darkest-bg-color);
+        }
+        textarea.materialize-textarea:focus:not([readonly]) {
+            border-bottom: 1px solid black;
+            box-shadow: 0 1px 0 0 black;
         }
         .romels-section-element-container {
             width: 500px;
@@ -215,7 +249,31 @@
             height: 85.75px;
             line-height: 85.75px;
         }
+        /* input-colors */
+           /* label focus color */
+        .input-field input[type=textarea]:focus + label {
+            color: #000;
+        }
+        /* label underline focus color */
+        .input-field input[type=textarea]:focus {
+            border-bottom: 1px solid #000;
+            box-shadow: 0 1px 0 0 #000;
+        }
+           /* icon prefix focus color */
+        .input-field .prefix.active {
+            color: #000;
+        }
+        /* input-colors[End] */
+        /* input-colors[from-devtools] */
+        input[type="text"]:not(.browser-default):focus:not([readonly]) {
+            border-bottom: 1px solid var(--darkest-bg-color);
+            box-shadow: 0 1px 0 0 black;
+        }
+        input[type="text"]:not(.browser-default):focus:not([readonly]) + label {
+            color: #000;
+        }
     </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+fIcons" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -299,6 +357,7 @@
                     to keep the cats fed and safe. We’re still figuring things out, 
                     and we're tiny, but we can take care of your web needs whether 
                     its caribou or carabao you have in your backyard.</p>
+                <p>TL;DR, we're a humble web dev studio spanning Guam and Canada. We like making things and we love our cats.</p>
             </section>
             <section id="support" class="white-bg py-1">
                 <div class="container text-section">
@@ -316,70 +375,136 @@
                         and let's make something awesome together!</p>
                 </div>
             </section>
-            <section id="support" class="py-1">
+            <section id="contact" class="py-1">
                 <div class="container text-section">
                     <div class="row">
                         <h2>Contact Us</h2>
                     </div>
-                    
+                    <div>
                     <p>Got an idea? Need a website? Just want to say hi (or send cat pics)? Reach out!</p>
+                    <p></p>
+    
+                    <!-- note: Send us a message!  -->
+                    <!-- note: It costs you nothing to send us a message! -->
+
+                    <!--  -->
+
+                    <div class="row">
+                        <form class="col m12 s12">
+                            <div class="row">
+                                <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix" type="text" class="validate">
+                                <label for="icon_prefix">name</p></label>
+                                </div>
+                                <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="icon_telephone" type="text" class="validate">
+                                <label for="icon_telephone">email</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col m8 s12">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                    <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                                    <label for="icon_prefix2">It costs you nothing to send us a message!</label> 
+                                </div>
+                                <div class="col m4 s12 romels-button-alignment">
+                                    <a class="waves-effect waves-light btn" id="romels-submit-button">send</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- deprecated -->
+                    <!-- input-with-icon-prefix -->
+                    <!-- <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                            <div class="col s3 center-align romels-col-element-2"></div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                                <label for="icon_prefix2">When are you available?</label>
+                            </div>
+                            <div class="col s3 romels-button-alignment">
+                                <a class="waves-effect waves-light btn" id="romels-submit-button">button</a>
+                            </div>
+                            </div>
+                        </form>
+                    </div> -->
+                    <!-- [End] input-with-icon-prefix -->
                     
                 </div>
             </section>
-
+        </main>
+        <!-- <footer class="page-footer white-bg">
             <div class="container">
-                <h1>Caribou Carabao</h1>
-                <p>
-                    A humble web dev studio spanning Guam and Canada
-                </p>
-            </div>
-            <section class="romels-section-element-container">
                 <div class="row">
-                    <div class="col s12 m7">
-                        <div class="card hoverable">
-                        <div class="card-image">
-                            <img class="responsive-img romels-image-src-element" src="https://t3.ftcdn.net/jpg/01/85/21/94/240_F_185219415_B4vnT9mnjRj70bChe5ZPI1hwBfQ7di0e.jpg">
-                            <span class="card-title">Card Title</span>
+                    <div class="col s12 m6">
+                        <p>
+                            <b class="valign-wrapper">
+                                Made with <i class="material-icons" style="color: red">favorite</i> in Guahan & Canada
+                            </b>
+                        </p>
+                    </div>
+                    <div class="col s12 m6">
+                        <p class="valign-wrapper justify-right">
+                            <a href="mailto:inquiries@caribou.carabao.dev">inquiries@caribou.carabao.dev</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright white-bg">
+                <div class="container">
+                    <p>
+                        &copy; 2025 Copyright
+                    </p>
+                </div>
+            </div>
+        </footer> -->
+        <footer class="pt-05 white-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <p>
+                            <b class="valign-wrapper">
+                                Made with <i class="material-icons" style="color: red">favorite</i> in Guahan & Canada
+                            </b>
+                        </p>
+                    </div>
+                    <div class="col s12 m6 hide-on-small-only">
+                        <div>
+                            <p class="valign-wrapper justify-right">
+                                <a href="mailto:inquiries@caribou.carabao.dev">inquiries@caribou.carabao.dev</a>
+                            </p>
                         </div>
-                        <div class="card-content">
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
+                        <div>
+                            <p class="right-align">
+                                <a href="https://gofund.me/dc730606" target="_blank">Mochy and Tokyo's gofundme</a>
+                            </p>
                         </div>
-                        <div class="card-action">
-                            <a href="#">This is a link</a>
+                    </div>
+                    <div class="col s12 m6 hide-on-med-and-up">
+                        <div>
+                            <p class="valign-wrapper">
+                                <a href="mailto:inquiries@caribou.carabao.dev">inquiries@caribou.carabao.dev</a>
+                            </p>
                         </div>
+                        <div>
+                            <p>
+                                <a href="https://gofund.me/dc730606" target="_blank">Mochy and Tokyo's gofundme</a>
+                            </p>
                         </div>
                     </div>
                 </div>
-            </section>
-            <div class="container">
-                <!-- input-with-icon-prefix -->
                 <div class="row">
-                    <form class="col s12">
-                      <div class="row">
-                        <div class="col s4 center-align romels-col-element-2 romels-border-box-element">Empty</div>
-                        <div class="input-field col s6">
-                          <i class="material-icons prefix">mode_edit</i>
-                          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                          <label for="icon_prefix2">When are you available?</label>
-                        </div>
-                        <div class="col s2 romels-button-alignment">
-                            <a class="waves-effect waves-light btn" id="romels-submit-button">button</a>
-                        </div>
-                      </div>
-                    </form>
-                </div>
-                <!-- [End] input-with-icon-prefix -->
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col s2 valign-wrapper romels-col-element romels-col-element-justify-content"><a class="waves-effect waves-light btn">button</a></div>
-                    <div class="col s8 center-align romels-col-element romels-border-box-element">Empty Space</div>
-                    <div class="col s2 romels-col-element"><i class="large material-icons">arrow_forward</i></div>
+                    <div class="col s12"><p>
+                        &copy; 2025 Copyright
+                    </p></div>
                 </div>
             </div>
-            
-        </main>
+        </footer>
     </div>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
