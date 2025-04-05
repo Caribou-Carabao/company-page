@@ -278,6 +278,11 @@
         input[type="text"]:not(.browser-default):focus:not([readonly]) + label {
             color: #000;
         }
+        @media screen and (min-width: 600px) {
+            #modify-submit-button-1 {
+                margin: 0 auto 0 3em;
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/icon?family=Material+fIcons" rel="stylesheet">
 </head>
@@ -415,8 +420,8 @@
                                     <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
                                     <label for="icon_prefix2">It costs you nothing to send us a message!</label> 
                                 </div>
-                                <div class="col m4 s12 romels-button-alignment">
-                                    <a class="waves-effect waves-light btn" id="romels-submit-button">send</a>
+                                <div class="col m3 s12 romels-button-alignment">
+                                    <a class="waves-effect waves-light btn" id="modify-submit-button-1" id="romels-submit-button">send</a>
                                 </div>
                             </div>
                         </form>
