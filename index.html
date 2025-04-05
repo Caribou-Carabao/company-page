@@ -390,6 +390,12 @@
         {
             return (a * (1.0 - t)) + (b * t);
         }
+        function easeOutCubic(x) {
+            return 1 - Math.pow(1 - x, 3);
+        }
+        function easeInCubic(x) {
+            return x * x * x;
+        }
 
         const app = createApp({
             data() {
@@ -430,7 +436,7 @@
                 }, 750);
                 setInterval(() => {
                     this.t += 1
-                    this.buildUp = Math.max(this.buildUp - 1/100, 0)
+                    this.buildUp = Math.max(this.buildUp - 1/50, 0)
                     if (!this.buildUp) {
                         this.waited += 1
                         this.dotRealX = lerp(this.dotRealX, window.innerWidth/2, .1)
@@ -485,7 +491,7 @@
                 dotX() {
                     if (!this.isMounted) return 0;
                     if (this.dragging) return this.dotRealX;
-                    return lerp(this.dotEX, this.dotRealX, this.buildUp)
+                    return lerp(this.dotEX, this.dotRealX, easeInCubic(this.buildUp))
                 },
                 maskLeftStyle() {
                     return {
