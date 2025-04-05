@@ -4,8 +4,679 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caribou Carabao</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Limelight&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Limelight&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- MATERIAL-UI--icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script
+        src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.3.0/dist/dotlottie-wc.js"
+        type="module"
+    ></script>
+    <style>
+        :root {
+            --bg-color: hsl(60, 3%, 89%);
+            --darker-bg-color: hsl(60, 8%, 60%);
+            --darkest-bg-color: hsl(60, 10%, 50%);
+            --against-white-color: #666;
+            --nav-height: 100px;
+            scroll-behavior: smooth;
+            /* ___romels__variables___ */
+            --col-height: 90px;
+            /*  */
+        }
+        html {
+            background-color: var(--bg-color);
+        }
+        .nav-wrapper, nav {
+            background-color: rgba(227, 227, 225, 0);
+            height: var(--nav-height);
+            line-height: var(--nav-height);
+        }
+        nav {
+            box-shadow: none;
+            color: black;
+            position: fixed;
+            z-index: 200;
+        }
+        .nav-padding {
+            height: var(--nav-height);
+            width: 100vw;
+        }
+        .nav-padding.backing {
+            position: fixed;
+            top: 0;
+            background-color: var(--bg-color);
+        }
+        .nav-wrapper img {
+            margin: 0 0.5em;
+            height: var(--nav-height);
+        }
+        .nav-wrapper a {
+            color: black;
+        }
+        @media only screen and (max-width: 600px) {
+            :root {
+                --nav-height: 75px;
+            }
+            nav .brand-logo {
+                padding-left: 70px;
+                text-align: center;
+            }
+            .hero .brand-logo {
+                font-size: 2.5rem;
+            }
+        }
+        .brand-logo {
+            font-family: "Limelight", sans-serif;
+            font-weight: 400;
+            font-style: normal;   
+        }
+        h2, .subtitle h3 {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
+        }
+        h2 {
+            margin-top: 0.5em;
+            padding-bottom: 0.5em;
+            padding-left: 0.25em;
+            padding-right: 0.25em;
+            margin-bottom: 0.7em;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.87);
+            width: fit-content;
+        }
+        .subtitle {
+            font-size: smaller;
+        }
+        .hero {
+            height: 600px;
+        }
+        .hero .col {
+            padding: 0;
+        }
+        .fullwidth, .hero {
+            width: 100vw;
+        }
+        .invisible {
+            color: rgba(0,0,0,0)
+        }
+        .relative {
+            position: relative;
+        }
+        .absolute {
+            position: absolute;
+            top: 0
+        }
+        .masked-text {
+            /* font-size: 3rem;
+            font-weight: bold; */
+            /* color: black; */
+            mix-blend-mode: normal;
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .dot {
+            pointer-events: auto;
+            cursor: grab;
+            position: absolute;
+            left: 0;
+        }
+        /* https://stackoverflow.com/a/4407335 */
+        .noselect {
+          -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+             -khtml-user-select: none; /* Konqueror HTML */
+               -moz-user-select: none; /* Old versions of Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                    user-select: none; /* Non-prefixed version, currently
+                                        supported by Chrome, Edge, Opera and Firefox */
+        }
+        .top0 {
+            top: -50px
+        }
+        .hero-text .right-align span {
+            /* translate: -0.25em 0; */
+            padding-left: 1em;
+        }
+        .hero-text .left-align span {
+            /* translate: 0.25em 0; */
+            padding-right: 1em;
+        }
+        .hero-text span {
+            padding: 0.5em;
+            /* background: red; */
+        }
+        .caribou, .carabao, .overlay {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+        }
+        .overlay {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .carabao {
+            background-image: url('assets/carabao.jpg')
+        }
+        .caribou {
+            background-image: url('assets/caribou-g_sepia.png');
+        }
+        .hero dotlottie-wc {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            translate: -50% 0;
+            width: 250px;
+            height: 125px;
+        }
+        .m0 {
+            margin: 0;
+        }
+        .py-1 {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        .pt-05 {
+            padding-top: 2rem;
+        }
+        .py-05 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .text-section {
+            padding-bottom: 5rem;
+        }
+        .white-bg, .footer-copyright.white-bg {
+            background-color: white;
+            color: var(--against-white-color);
+        }
+        footer .row {
+            margin: 0;
+        }
+        .justify-right {
+            justify-content: right;
+        }
+        .btn {
+            background-color: var(--darker-bg-color);
+        }
+        .btn:hover {
+            background-color: var(--darkest-bg-color);
+        }
+        textarea.materialize-textarea:not([readonly])+label {
+            color: var(--darkest-bg-color);
+        }
+        textarea.materialize-textarea:focus:not([readonly])+label {
+            color: black;
+        }
+        textarea.materialize-textarea:not([readonly]) {
+            border-bottom: 1px solid var(--darkest-bg-color);
+        }
+        textarea.materialize-textarea:focus:not([readonly]) {
+            border-bottom: 1px solid black;
+            box-shadow: 0 1px 0 0 black;
+        }
+        .romels-section-element-container {
+            width: 500px;
+        }
+        .romels-col-element-justify-content {
+            justify-content: center;
+        }
+        .romels-col-element {
+            height: var(--col-height);
+            line-height: var(--col-height);
+        }
+        .romels-border-box-element {
+            border: dotted;
+        }
+        .romels-button-alignment {
+            display: flex;
+            height: 85.75px;
+            align-items: center;
+        }
+        #romels-submit-button {
+            /* margin-bottom: 6.5px; */
+            margin-bottom: 8.5px;
+        }
+        .romels-col-element-2 {
+            height: 85.75px;
+            line-height: 85.75px;
+        }
+        /* input-colors */
+           /* label focus color */
+        .input-field input[type=textarea]:focus + label {
+            color: #000;
+        }
+        /* label underline focus color */
+        .input-field input[type=textarea]:focus {
+            border-bottom: 1px solid #000;
+            box-shadow: 0 1px 0 0 #000;
+        }
+           /* icon prefix focus color */
+        .input-field .prefix.active {
+            color: #000;
+        }
+        /* input-colors[End] */
+        /* input-colors[from-devtools] */
+        input[type="text"]:not(.browser-default):focus:not([readonly]) {
+            border-bottom: 1px solid var(--darkest-bg-color);
+            box-shadow: 0 1px 0 0 black;
+        }
+        input[type="text"]:not(.browser-default):focus:not([readonly]) + label {
+            color: #000;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+fIcons" rel="stylesheet">
 </head>
 <body>
-    stub
+    <div id="app">
+        <header>
+            <nav >
+                <div class="nav-wrapper">
+                    <img
+                        src="assets/carabao caribou transparent.png" alt="Caribou Carabao logo"
+                    >
+                    <a href="#" class="brand-logo">Caribou.Carabao</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#support">Support the Cats</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="nav-padding"></div>
+            <div class="nav-padding backing"></div>
+        </header>
+        <main>
+            <!-- hero -->
+            <section>
+                <div class="hero valign-wrapper center-align relative">
+                    <div class="caribou absolute" :style="caribouStyle"></div>
+                    <div class="carabao absolute" :style="carabaoStyle"></div>
+                    <div class="overlay absolute"></div>
+                    <div class="fullwidth m0">
+                        <div class="row m0 hide-on-small-only">
+                            <div class="col s12 relative mask-layer no-select">  
+                                <h1 class="brand-logo fullwidth absolute">
+                                    <dotlottie-wc
+                                        src="https://lottie.host/3907c87a-616f-4487-ad90-80e7984cef1c/lJ29vNNopZ.lottie"
+                                        autoplay
+                                        loop
+                                        speed="0.75"
+                                        :style="arrowStyle"
+                                    ></dotlottie-wc>
+                                    <div class="dot relative" :style="movingDotStyle">{{dot}}</div>
+                                </h1>
+                                <h1 class="brand-logo fullwidth masked-text">
+                                    <div class="row hero-text">
+                                        <div 
+                                            class="col s6 right-align" 
+                                            :style="maskLeftStyle">
+                                            <span ref="heroleft">
+                                                Caribou
+                                            </span>
+                                        </div>
+                                        <!-- <span class="invisible">{{dots[0]}}</span>  -->
+                                        <div 
+                                            class="col s6 left-align" 
+                                            :style="maskRightStyle">
+                                            <span ref="heroright" >
+                                                Carabao
+                                            </span>
+                                        </div>
+                                    </div>
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 show-on-small hide-on-med-and-up brand-logo relative">
+                                <h3 class="brand-logo">Caribou·Carabao</h3>
+                            </div>
+                            <div class="col s12 subtitle relative">
+                                <h3>Local. Fun. Humble. Helping Cats</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="about" class="container py-1 text-section">
+                <div class="row">
+                    <h2>Who are we?</h2>
+                </div>
+                <p><b>Caribou Carabao</b> started as a small idea with a big heart. 
+                    One of our team members was facing a tough choice—give up 
+                    their beloved cats or find a way to make extra money. 
+                    So, we came together to create, build, and hustle, all 
+                    to keep the cats fed and safe. We’re still figuring things out, 
+                    and we're tiny, but we can take care of your web needs whether 
+                    its caribou or carabao you have in your backyard.</p>
+                <p>TL;DR, we're a humble web dev studio spanning Guam and Canada. We like making things and we love our cats.</p>
+            </section>
+            <section id="support" class="white-bg py-1">
+                <div class="container text-section">
+                    <div class="row">
+                        <h2 class="right">Support the Cats</h2>
+                    </div>
+                    <p class="right-align">Every project we take on helps fund Sarah's cat care. 
+                        Whether it's building websites, creating fun digital 
+                        experiences, or just sharing our love for creativity, we 
+                        make sure a portion of everything we do goes toward keeping 
+                        our feline friends happy and safe. Want to chip in? 
+                        <a href="https://gofund.me/dc730606" target="_blank">Donate</a>
+                        or 
+                        <a href="#contact">Hire Us</a>
+                        and let's make something awesome together!</p>
+                </div>
+            </section>
+            <section id="contact" class="py-1">
+                <div class="container text-section">
+                    <div class="row">
+                        <h2>Contact Us</h2>
+                    </div>
+                    <div>
+                    <p>Got an idea? Need a website? Just want to say hi (or send cat pics)? Reach out!</p>
+                    <p></p>
+    
+                    <!-- note: Send us a message!  -->
+                    <!-- note: It costs you nothing to send us a message! -->
+
+                    <!--  -->
+
+                    <div class="row">
+                        <form class="col m12 s12">
+                            <div class="row">
+                                <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix" type="text" class="validate">
+                                <label for="icon_prefix">name</p></label>
+                                </div>
+                                <div class="input-field col m6 s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="icon_telephone" type="text" class="validate">
+                                <label for="icon_telephone">email</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col m8 s12">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                    <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                                    <label for="icon_prefix2">It costs you nothing to send us a message!</label> 
+                                </div>
+                                <div class="col m4 s12 romels-button-alignment">
+                                    <a class="waves-effect waves-light btn" id="romels-submit-button">send</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- deprecated -->
+                    <!-- input-with-icon-prefix -->
+                    <!-- <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                            <div class="col s3 center-align romels-col-element-2"></div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                                <label for="icon_prefix2">When are you available?</label>
+                            </div>
+                            <div class="col s3 romels-button-alignment">
+                                <a class="waves-effect waves-light btn" id="romels-submit-button">button</a>
+                            </div>
+                            </div>
+                        </form>
+                    </div> -->
+                    <!-- [End] input-with-icon-prefix -->
+                    
+                </div>
+            </section>
+        </main>
+        <!-- <footer class="page-footer white-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <p>
+                            <b class="valign-wrapper">
+                                Made with <i class="material-icons" style="color: red">favorite</i> in Guahan & Canada
+                            </b>
+                        </p>
+                    </div>
+                    <div class="col s12 m6">
+                        <p class="valign-wrapper justify-right">
+                            <a href="mailto:inquiries@caribou.carabao.dev">inquiries@caribou.carabao.dev</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright white-bg">
+                <div class="container">
+                    <p>
+                        &copy; 2025 Copyright
+                    </p>
+                </div>
+            </div>
+        </footer> -->
+        <footer class="pt-05 white-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <p>
+                            <b class="valign-wrapper">
+                                Made with <i class="material-icons" style="color: red">favorite</i> in Guahan & Canada
+                            </b>
+                        </p>
+                    </div>
+                    <div class="col s12 m6 hide-on-small-only">
+                        <div>
+                            <p class="valign-wrapper justify-right">
+                                <a href="mailto:inquiries@caribou.carabao.dev">inquiries@caribou.carabao.dev</a>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="right-align">
+                                <a href="https://gofund.me/dc730606" target="_blank">Mochy and Tokyo's gofundme</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 hide-on-med-and-up">
+                        <div>
+                            <p class="valign-wrapper">
+                                <a href="mailto:inquiries@caribou.carabao.dev">inquiries@caribou.carabao.dev</a>
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                <a href="https://gofund.me/dc730606" target="_blank">Mochy and Tokyo's gofundme</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12"><p>
+                        &copy; 2025 Copyright
+                    </p></div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        const { createApp, onMounted } = Vue
+      
+        function lerp(a, b, t) 
+        {
+            return (a * (1.0 - t)) + (b * t);
+        }
+        function easeOutCubic(x) {
+            return 1 - Math.pow(1 - x, 3);
+        }
+        function easeInCubic(x) {
+            return x * x * x;
+        }
+
+        const app = createApp({
+            data() {
+                return {
+                    // 
+                    // romels-data
+                    availability: {
+                        'chovin': {'sunday': [], 'monday': [], 'tuesday': [], 'wednesday': [], 'thursday': [], 'friday': [], 'saturday': []},
+                        'romel' : {},
+                        'leo' : {},
+                        'dawn' : {}
+                    },
+                    isClicked: {},
+                    formContent: null,
+
+                    // 
+                    dots: ['·', '|'],
+                    doti: 0,
+                    radius: 60,
+                    dragging: false,
+                    dotRealX: window.innerWidth/2,
+                    dotY: 0,
+                    isMounted: false,
+                    t: 0,
+                    buildUp: 0,
+                    waited: 0,
+                    mousePressed: false
+                }
+            },
+            mounted() {
+                // 
+                // romels-mounted()
+
+
+                // 
+                setInterval(() => {
+                    this.doti = (this.doti + 1) % this.dots.length
+                }, 750);
+                setInterval(() => {
+                    this.t += 1
+                    this.buildUp = Math.max(this.buildUp - 1/50, 0)
+                    if (!this.buildUp) {
+                        this.waited += 1
+                        this.dotRealX = lerp(this.dotRealX, window.innerWidth/2, .1)
+                    }
+                }, 50)
+                document.querySelector('.dot').addEventListener('mousedown', this.startDrag);
+                this.isMounted = true
+            },
+            methods: {
+                // 
+                // romels-methods
+                postData() {
+                    return {}
+                    // this function will execute a fetch api --post-request-- to a 
+                    // webhook
+                },
+
+                // 
+                startDrag(event) {
+                    this.dragging = true;
+                    this.updatePosition(event);
+                    window.addEventListener('mousemove', this.updatePosition);
+                    window.addEventListener('mouseup', this.stopDrag);
+                },
+                updatePosition(event) {
+                    if (!this.dragging) return;
+                    // this.dotX = event.clientX; // Only update X
+                    this.buildUp = 1
+                    this.waited = 0
+                    this.dotRealX = Math.min(
+                        Math.max(this.dotMin, 
+                        event.clientX),
+                        this.dotMax
+                    )
+                },
+                stopDrag() {
+                    this.dragging = false;
+                    window.removeEventListener('mousemove', this.updatePosition);
+                    window.removeEventListener('mouseup', this.stopDrag);
+                }
+            },
+            computed: {
+                dot() {
+                    return this.dots[this.doti]
+                },
+                dotEX() {
+                    if (!this.isMounted) return 0;
+                    let affect = Math.min(Math.max(this.waited/100-.5,0),1)
+                    let a = Math.sin(this.t/20) * affect * (this.dotMax-this.dotMin)*0.025 + window.innerWidth/2
+                    return a
+                },
+                dotX() {
+                    if (!this.isMounted) return 0;
+                    if (this.dragging) return this.dotRealX;
+                    return lerp(this.dotEX, this.dotRealX, easeInCubic(this.buildUp))
+                },
+                maskLeftStyle() {
+                    return {
+                        WebkitMaskImage: `linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) calc(${this.dotX}px - 5px), transparent calc(${this.dotX}px - 2px), transparent 100%)`,
+                        maskImage: `linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) calc(${this.dotX}px + 0.25em - 5px), transparent calc(${this.dotX}px + 0.25em - 2px), transparent 100%)`,
+                    };
+                },
+                maskRightStyle() {
+                    let ox = this.dotX-window.innerWidth
+                    return {
+                        WebkitMaskImage: `linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) calc(${-ox}px - 5px), transparent calc(${-ox}px - 2px), transparent 100%)`,
+                        maskImage: `linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) calc(${-ox}px + 0.25em - 5px), transparent calc(${-ox}px + 0.25em - 2px), transparent 100%)`,
+                    };
+                },
+                leftWidth() {
+                    if (!this.isMounted) return 0;
+                    let el = this.$refs.heroleft
+                    return el ? el.getBoundingClientRect().width : 0
+                },
+                dotMin() {
+                    if (!this.isMounted) return 0;
+                    return window.innerWidth/2 - this.leftWidth
+                },
+                dotMax() {
+                    if (!this.isMounted) return 0;
+                    return window.innerWidth/2 + this.rightWidth
+                },
+                rightWidth() {
+                    if (!this.isMounted) return 0;
+                    let el = this.$refs.heroright
+                    return el ? el.getBoundingClientRect().width : 0
+                },
+                movingDotStyle() {
+                    return {
+                        transform: `translate(-50%, 0)`,
+                        translate: `${this.dotX}px 0`
+                    }
+                },
+                caribouStyle() {
+                    return {
+                        opacity: (this.dotX - this.dotMin)/(this.dotMax-this.dotMin)
+                    }
+                },
+                carabaoStyle() {
+                    return {
+                        opacity: 1-(this.dotX - this.dotMin)/(this.dotMax-this.dotMin)
+                    }
+                },
+                arrowStyle() {
+                    let op = Math.abs(0.5-(this.dotX - this.dotMin)/(this.dotMax-this.dotMin))*8
+                    return {
+                        opacity: 1-op
+                    }
+                }
+            }
+        })
+        
+        app.config.compilerOptions.isCustomElement = tag => tag.startsWith('dotlottie')
+
+        app.mount('#app')        
+    </script>
 </body>
 </html>
