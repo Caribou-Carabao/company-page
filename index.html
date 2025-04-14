@@ -679,6 +679,7 @@
                 arrowStyle() {
                     let op = Math.abs(0.5-(this.dotX - this.dotMin)/(this.dotMax-this.dotMin))*8
                     return {
+                        transform: `translate(${this.dotX-window.innerWidth/2}px, 0)`,
                         opacity: 1-op
                     }
                 }
