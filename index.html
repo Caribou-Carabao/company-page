@@ -278,7 +278,13 @@
         input[type="text"]:not(.browser-default):focus:not([readonly]) + label {
             color: #000;
         }
-        @media screen and (min-width: 600px) {
+        @media screen and (min-width: 275px) {
+            #modify-submit-button-1 {
+                /* margin: 0 0.5em 0 auto; */
+                margin: 0 0.5em 0 auto;
+            }
+        }
+        @media screen and (min-width: 601px) {
             #modify-submit-button-1 {
                 margin: 0 auto 0 3em;
             }
@@ -405,23 +411,37 @@
                             <div class="row">
                                 <div class="input-field col m6 s12">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_prefix" type="text" class="validate">
+                                <!-- input has option of a class: validate -->
+                                <input id="icon_prefix" v-model="formInput.name" type="text">
                                 <label for="icon_prefix">name</p></label>
+                                <!-- test v-model -->
+                                <!-- <div>formInputName => {{formInput.name}}</div> -->
+                                <!-- end-test--v-model -->
                                 </div>
                                 <div class="input-field col m6 s12">
                                 <i class="material-icons prefix">email</i>
-                                <input id="icon_telephone" type="text" class="validate">
+                                <!-- input has option of a class: validate -->
+                                <input id="icon_telephone" v-model="formInput.email" type="text">
                                 <label for="icon_telephone">email</label>
+                                <!-- test v-model -->
+                                <!-- <div>formInput.email => {{formInput.email}}</div> -->
+                                <!-- end-test--v-model -->                                
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col m8 s12">
                                     <i class="material-icons prefix">mode_edit</i>
-                                    <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                                    <label for="icon_prefix2">It costs you nothing to send us a message!</label> 
+                                    <textarea id="icon_prefix2" v-model="formInput.message" class="materialize-textarea"></textarea>
+                                    <!-- old-save -->
+                                    <!-- <label for="icon_prefix2">It costs you nothing to send us a message!</label>  -->
+                                    <!-- new -->
+                                    <label for="icon_prefix2">message</label>                                     
+                                    <!-- test v-model -->
+                                    <!-- <div>formInput.message => {{formInput.message}}</div> -->
+                                    <!-- end-test--v-model -->                                
                                 </div>
                                 <div class="col m3 s12 romels-button-alignment">
-                                    <a class="waves-effect waves-light btn" id="modify-submit-button-1" id="romels-submit-button">send</a>
+                                    <a @click="anyFunction()" class="waves-effect waves-light btn" id="modify-submit-button-1">send</a>
                                 </div>
                             </div>
                         </form>
@@ -546,7 +566,12 @@
                     },
                     isClicked: {},
                     formContent: null,
-
+                    // 04-18 created
+                    formInput: {
+                        'name': '',
+                        'email': '',
+                        'message': ''
+                    },
                     // 
                     dots: ['·', '|'],
                     doti: 0,
@@ -565,6 +590,7 @@
                 // 
                 // romels-mounted()
 
+                this.postData()
 
                 // 
                 setInterval(() => {
@@ -585,9 +611,40 @@
                 // 
                 // romels-methods
                 postData() {
-                    return {}
+                    console.log("Post-Data2")
                     // this function will execute a fetch api --post-request-- to a 
                     // webhook
+                },
+                async anyFunction() {
+                    url_webhook = "https://discord.com/api/webhooks/1361320963001684060/odIakHZHu1qEGeXqTWYceCk-9a0HHWDmp_xZHSNZ_qeu5Ybf9Oang7WGiZoQkPQ5rWdg"
+                    await fetch(url_webhook,
+                        {
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            method: "POST",
+                            body: JSON.stringify({
+                                "content": "A new response arrived through the website!\n",
+                                "embeds": [
+                                    {
+                                    "description": `${this.formInput.message}`,
+                                    "color": parseInt(Math.random()*16777215),
+                                    "author": {
+                                        "name": `${this.formInput.name} <${this.formInput.email}>`
+                                    },
+                                    "footer": {
+                                        "text": "Website - Contact Form"
+                                    }
+                                    }
+                                ],
+                                "attachments": []
+                            })
+                        }
+                    )
+                    this.formInput.name = ""
+                    this.formInput.email = ""
+                    this.formInput.message= ""
                 },
 
                 // 
