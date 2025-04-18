@@ -278,7 +278,13 @@
         input[type="text"]:not(.browser-default):focus:not([readonly]) + label {
             color: #000;
         }
-        @media screen and (min-width: 600px) {
+        @media screen and (min-width: 275px) {
+            #modify-submit-button-1 {
+                /* margin: 0 0.5em 0 auto; */
+                margin: 0 0.5em 0 auto;
+            }
+        }
+        @media screen and (min-width: 601px) {
             #modify-submit-button-1 {
                 margin: 0 auto 0 3em;
             }
@@ -421,7 +427,7 @@
                                     <label for="icon_prefix2">It costs you nothing to send us a message!</label> 
                                 </div>
                                 <div class="col m3 s12 romels-button-alignment">
-                                    <a class="waves-effect waves-light btn" id="modify-submit-button-1" id="romels-submit-button">send</a>
+                                    <a class="waves-effect waves-light btn" id="modify-submit-button-1">send</a>
                                 </div>
                             </div>
                         </form>
@@ -590,6 +596,7 @@
                     // webhook
                 },
 
+                
                 // 
                 startDrag(event) {
                     this.dragging = true;
